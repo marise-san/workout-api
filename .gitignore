@@ -20,8 +20,3 @@ build/
 # Ignora configurações do IDE
 .idea/
 .vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
