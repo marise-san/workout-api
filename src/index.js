@@ -1,24 +1,16 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const pool = require("./config/database");
+const swaggerUi = require("swagger-ui-express");
+const userRoutes = require("./routes/user");
 
 dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("API started successfully!");
-});
+const swaggerDocument = require("./config/swagger.json");
 
+app.use("/user", userRoutes);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.get("/test-db", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT NOW()");
-    res.json({ success: true, time: result.rows[0] });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
-
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));

@@ -1,0 +1,143 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "WORKOUT-API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/user": {
+            "get": {
+                "summary": "Retorna todos os usuários cadastrados",
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuários cadastrados"
+                    },
+                    "500": {
+                        "description": "Erro no servidor"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Cria um novo usuário",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro no servidor"
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "summary": "Retorna um usuário pelo ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "ID numérico do usuário a ser obtido"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado"
+                    },
+                    "500": {
+                        "description": "Erro no servidor"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Atualiza um usuário pelo ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "ID numérico do usuário a ser atualizado"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário atualizado com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro no servidor"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deleta um usuário pelo ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "ID numérico do usuário a ser obtido"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário deletado com sucesso"
+                    },
+                    "500": {
+                        "description": "Erro no servidor"
+                    }
+                }
+            }
+        }
+    }
+}
