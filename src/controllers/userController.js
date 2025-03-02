@@ -1,7 +1,6 @@
 const pool = require("../config/database");
 const User = require("../models/User");
 
-// 🔍 Buscar todos os usuários
 const getUsers = async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM public.user;");
@@ -12,7 +11,6 @@ const getUsers = async (req, res) => {
     }
 };
 
-// 🔍 Buscar usuário pelo ID
 const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
