@@ -1,16 +1,19 @@
-const express = require("express");
 const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./config/swagger.json");
+const cors = require("cors");
+const express = require("express");
+const app = express();
 const userRoutes = require("./routes/user");
+const authRoutes = require("./routes/auth");
 
 dotenv.config();
-const app = express();
+
 app.use(express.json());
-
-const swaggerDocument = require("./config/swagger.json");
-
-app.use("/user", userRoutes);
+app.use(cors());
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/user", userRoutes);
+app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+app.listen(PORT, "0.0.0.0", () => console.log(`Server running on ${PORT}`));

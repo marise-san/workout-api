@@ -1,8 +1,11 @@
 const pool = require("../config/database");
 const User = require("../models/User");
+const md5 = require("md5");
 
 const getUsers = async (req, res) => {
     try {
+        console.log("GET /user");
+        
         const result = await pool.query("SELECT * FROM public.user;");
         const user = result.rows.map(row => new User(row.id, row.name, row.email));
         res.json(user);
@@ -31,7 +34,8 @@ const getUserById = async (req, res) => {
 const createUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
-        const result = await pool.query("INSERT INTO public.user (name, email, password) VALUES ($1, $2, $3) RETURNING *;", [name, email, password]);
+        const passwordHash = md5(password);
+        const result = await pool.query("INSERT INTO public.user (name, email, password) VALUES ($1, $2, $3) RETURNING *;", [name, email, passwordHash]);
         res.status(201).json(`Usuário ${result.rows[0].name} criado com sucesso`);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -42,8 +46,8 @@ const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
         const { name, email, password } = req.body;
-
-        const result = await pool.query("UPDATE public.user SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *;", [name, email, password, id]);
+        const passwordHash = md5(password);
+        const result = await pool.query("UPDATE public.user SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *;", [name, email, passwordHash, id]);
 
         if (result.rows.length === 0) {
             return res.status(404).json({ error: "Usuário não encontrado" });

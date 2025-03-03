@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { getUsers, getUserById, createUser, updateUser, deleteUser } = require("../controllers/userController");
+const authMiddleware = require("../middleware/authMiddleware");
 
 /**
  * @swagger
@@ -21,7 +22,7 @@ const { getUsers, getUserById, createUser, updateUser, deleteUser } = require(".
  *       500:
  *         description: Erro no servidor
  */
-router.get("/", getUsers);
+router.get("/", authMiddleware, getUsers);
 
 /**
  * @swagger
@@ -41,7 +42,7 @@ router.get("/", getUsers);
  *       404:
  *         description: Usuário não encontrado
  */
-router.get("/:id", getUserById);
+router.get("/:id", authMiddleware, getUserById);
 
 /**
  * @swagger
@@ -93,6 +94,7 @@ router.post("/", createUser);
  *       200:
  *         description: Usuário atualizado com sucesso
  */
+// router.put("/:id", authMiddleware, updateUser);
 router.put("/:id", updateUser);
 
 /**
@@ -113,6 +115,6 @@ router.put("/:id", updateUser);
  *       404:
  *         description: Usuário não encontrado
  */
-router.delete("/:id", deleteUser);
+router.delete("/:id", authMiddleware, deleteUser);
 
 module.exports = router;
