@@ -69,3 +69,9 @@ CREATE TABLE "public".exercise
 		REFERENCES "public".workout(id) 
 		ON DELETE CASCADE
 )
+
+## Autenticação com o Google
+- Criar um novo projeto no Google Cloud Console
+- Ativar o serviço Google Identity Plataform (permite que o projeto autentique usuários com o Google) 
+- Criar Cliente OAuth 2.0
+- Criar uma credencial para o projeto Android
