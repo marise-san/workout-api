@@ -14,5 +14,5 @@ app.use(cors());
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/user", userRoutes);
 app.use("/auth", authRoutes);
-
-app.listen(8080, () => console.log(`Server running on 8080`));
+const PORT = 8080;
+app.listen(PORT, '::', () => console.log(`Server running on ${PORT}`));
