@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const pool = new Pool({
   connectionString: process.env.DB_RAILWAY_URL,
-  ssl: { rejectUnauthorized: false },
+  ssl: process.env.DB_RAILWAY_URL?.includes("railway") ? { rejectUnauthorized: false } : false,
   port: process.env.DB_RAILWAY_PORT
 });
 
