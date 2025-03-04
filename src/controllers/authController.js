@@ -6,8 +6,6 @@ const login = async (req, res) => {
     const { email, password } = req.body;
 
     const passwordHash = md5(password);
-    console.log(passwordHash);
-
     try {
         const result = await pool.query("SELECT * FROM public.user WHERE email = $1", [email]);
 

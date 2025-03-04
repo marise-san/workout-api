@@ -22,7 +22,7 @@ const authMiddleware = require("../middleware/authMiddleware");
  *       500:
  *         description: Erro no servidor
  */
-router.get("/", authMiddleware, getUsers);
+router.get("/", getUsers);
 
 /**
  * @swagger
@@ -42,7 +42,7 @@ router.get("/", authMiddleware, getUsers);
  *       404:
  *         description: Usuário não encontrado
  */
-router.get("/:id", authMiddleware, getUserById);
+router.get("/:id", getUserById);
 
 /**
  * @swagger
@@ -115,6 +115,6 @@ router.put("/:id", updateUser);
  *       404:
  *         description: Usuário não encontrado
  */
-router.delete("/:id", authMiddleware, deleteUser);
+router.delete("/:id", deleteUser);
 
 module.exports = router;

@@ -23,37 +23,37 @@
 
 ## Script de criação das tabelas
 
-CREATE TABLE "public".user
+CREATE TABLE user
 (
 	id SERIAL PRIMARY KEY,
-	name VARCHAR(100) NOT NULL
-	email VARCHAR(100) NOT NULL
-	password VARCHAR(100) NOT NULL
+	name VARCHAR(100) NOT null,
+	email VARCHAR(100) NOT null,
+	password VARCHAR(100) NOT null
 )
 
-CREATE TABLE "public".routine 
+CREATE TABLE routine
 (
 	id SERIAL PRIMARY KEY, 
 	name VARCHAR(100) NOT NULL, 
 	userid BIGINT, 
 		CONSTRAINT fk_user 
 		FOREIGN KEY (userid) 
-		REFERENCES "public".user(id) 
+		REFERENCES public.user(id) 
 		ON DELETE CASCADE
 );
 
-CREATE TABLE "public".workout
+CREATE TABLE workout
 (
 	id SERIAL PRIMARY KEY, 
 	name VARCHAR(100) NOT NULL, 
     routineid BIGINT, 
 		CONSTRAINT fk_routine 
 		FOREIGN KEY (routineid) 
-		REFERENCES "public".routine(id) 
+		REFERENCES public.routine(id) 
 		ON DELETE CASCADE
-)
+);
 
-CREATE TABLE "public".exercise
+CREATE TABLE exercise
 (
 	id SERIAL PRIMARY KEY, 
 	name VARCHAR(100) NOT NULL, 
@@ -66,9 +66,9 @@ CREATE TABLE "public".exercise
     workoutid BIGINT, 
 		CONSTRAINT fk_workout 
 		FOREIGN KEY (workoutid) 
-		REFERENCES "public".workout(id) 
+		REFERENCES public.workout(id) 
 		ON DELETE CASCADE
-)
+);
 
 ## Autenticação com o Google
 - Criar um novo projeto no Google Cloud Console
